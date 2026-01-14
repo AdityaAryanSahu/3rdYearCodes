@@ -3,11 +3,14 @@
 #include<stdlib.h>
 #include<string.h>
 #include<ctype.h>
+#include<unistd.h>
 
 int findNoVow(char str[]){
     int count=0;
-    for(int i=0;i<strlen(str);i++)
+    for(int i=0;i<strlen(str);i++){
+    	str[i]=tolower(str[i]);
         if(str[i]!='a' && str[i]!='e' && str[i]!='i' &&str[i]!='o' &&str[i]!='u') count++;
+        }
     return count;
 }
 
@@ -39,6 +42,7 @@ int main(int argc, char* argv[]){
     x= findNoVow(temp);
     MPI_Gather(&x, 1, MPI_INT, buff, 1, MPI_INT, 0, MPI_COMM_WORLD);
     if(rank==0){
+    sleep(0.5);
         int sum=0;
         for(int i=0;i<size;i++) sum+=buff[i];
 

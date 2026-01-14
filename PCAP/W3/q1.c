@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<ctype.h>
+#include<unistd.h>
 
 int fact(int x){
     if(x == 0 || x==1) return 1;
@@ -24,8 +25,11 @@ int main(int argc, char* argv[]){
     }
     MPI_Scatter(array, 1, MPI_INT, &x, 1, MPI_INT, 0,MPI_COMM_WORLD);
     x= fact(x);
+    printf("computation done by rank %d: %d\n", rank, x);
     MPI_Gather(&x, 1, MPI_INT, array, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    
     if(rank==0){
+    sleep(0.5);
         int sum=0;
         for(int i=0;i<size;i++) sum+=array[i];
 

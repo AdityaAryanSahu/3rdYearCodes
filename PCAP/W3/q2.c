@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<ctype.h>
+#include<unistd.h>
 
 int findAVG(int arr[],int x){
     int sum=0;
@@ -33,6 +34,7 @@ int main(int argc, char* argv[]){
     printf("avg by rank %d: %d\n", rank, avg);
     MPI_Gather(&avg, 1, MPI_INT, res, 1, MPI_INT, 0, MPI_COMM_WORLD);
     if(rank==0){
+    sleep(0.5);
         avg=findAVG(res,size);
         printf("final avg: %d\n", avg);
     }

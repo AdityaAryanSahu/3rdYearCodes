@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<unistd.h>
 #include<ctype.h>
 
 int main(int argc, char* argv[]){
@@ -37,9 +38,10 @@ int main(int argc, char* argv[]){
         else final[i]=temp2[k++];
     }
     final[chunk*2]='\0';
-    printf("string former by rank %d: %s \n", rank, final);
+    printf("string formed by rank %d: %s \n", rank, final);
     MPI_Gather(&final, chunk*2, MPI_CHAR, finalW, chunk*2, MPI_CHAR, 0, MPI_COMM_WORLD);
     if(rank==0){
+    sleep(0.5);
         finalW[2*chunk*size]='\0';
         printf("final string in root: %s\n", finalW);
     }
