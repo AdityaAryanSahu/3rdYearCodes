@@ -3,24 +3,17 @@
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 
-__device__ int rev(int num){
-    int sum=0;
-    while(num!=0){
-        sum=sum*10+num%10;
-        num/=10;
-    }
-    return sum;
-}
+
 __device__ int comple(int num){
     if(num == 0) return 1;
     int sum=0;
-    while(num !=0){
+    for(int i=0;num>0;i++){
         int bit = num%2;
-        sum=sum*10+((bit == 0)? 1:0);
+        bit = (bit == 0)? 1:0;
+        sum=sum+(pow(10,i)*bit);
         num/=2;
     }
-
-    return rev(sum);
+    return sum;
 }
 
 __global__ void calc(int *A, int *B, int m, int n){
