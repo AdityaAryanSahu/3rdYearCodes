@@ -58,7 +58,7 @@ int main(){
 
     
     
-    dim3 grid((n2 + 15)/16, (m1 + 15)/16);
+    dim3 grid(ceil(n2/16.0), ceil(m1/16.0));
 	dim3 block(16,16);
     
 
